@@ -44,6 +44,38 @@
         </div>
     </div>
 
+    {{-- commentModal --}}
+    <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Comments</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="w-50 text-center mx-auto">
+                        <img src="" alt="" id="commmentsPhoto" style="width:90%">
+                    </div>
+                    <div class="text-secondary">
+                        <p><b>Comments : </b></p>
+                    </div>
+                    <div class="mt-4" id="commentsParentContainer">
+                        {{-- comments here --}}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex align-items-center justify-content-between w-100">
+                        {{-- hidden photo id --}}
+                        <input type="hidden" id="commentPhotoParentId">
+
+                        <input type="text" class="form-control w-75" id="commentInput">
+                        <button class="btn btn-sm btn-outline-primary" id="commentBtnDb">Comment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="border p-3 mt-5 d-md-flex text-center align-items-center justify-content-between rounded">
         <p class="p-0 m-0"><b><i>Welcome {{ Auth::user()->name }}!</i></b></p>
         <a href="{{ route('logOutFn') }}" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i>
@@ -55,7 +87,7 @@
             Picture</button>
     </div>
 
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-center justify-content-md-start mt-3">
         <p class="p-0 m-0 me-3">Filter : </p>
         <select class="form-control w-25" id="filterDropDown">
             {{-- filter --}}
@@ -84,14 +116,14 @@
         }
 
         // load all photos
-        function loadAllPhotos(filterData = 0){
-            
+        function loadAllPhotos(filterData = 0) {
+
             const filter = filterData
 
             $.ajax({
                 url: "{{ route('fetchAllPhoto') }}",
                 method: "get",
-                data:{
+                data: {
                     filter
                 },
                 success(e) {
@@ -102,13 +134,30 @@
 
         }
 
-        function loadAllCategories(){
+        // load categories
+        function loadAllCategories() {
 
             $.ajax({
                 url: "{{ route('fetchAllCategoryFilterFn') }}",
                 method: "get",
                 success(e) {
                     $("#filterDropDown").html(e)
+                }
+            })
+
+        }
+
+        function loadComments(parentId) {
+
+            $.ajax({
+                url: "{{ route('fetchCommentsFn') }}",
+                method: "post",
+                data:{
+                    parentId,
+                    _token:"{{ csrf_token() }}"
+                },
+                success(e) {
+                    $("#commentsParentContainer").html(e)
                 }
             })
 
@@ -262,11 +311,64 @@
             })
 
             // filter
-            $("#filterDropDown").change(function(){
-                
+            $("#filterDropDown").change(function() {
+
                 const filter = $(this).val()
 
                 loadAllPhotos(filter)
+            })
+
+            // show comments
+            $(document).on("click", "#showCommentBtn", function() {
+
+                const id = $(this).data("id")
+                const img = $(this).data("img")
+
+                $("#commentModal").modal('show')
+
+                $("#commmentsPhoto").attr('src', img)
+                $("#commentPhotoParentId").val(id)
+
+                loadComments(id)
+            })
+
+            // comment btn
+            $("#commentBtnDb").click(function() {
+
+                const parentId = $("#commentPhotoParentId").val()
+                const comment = $("#commentInput").val()
+
+                if (comment) {
+
+                    $.ajax({
+                        url: "{{ route('addCommentsFn') }}",
+                        method: "post",
+                        data: {
+                            parentId,
+                            comment,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success(e) {
+
+                            $("#commentInput").val('')
+
+                            loadComments(parentId)
+
+                        }
+                    })
+
+                } else {
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        text: "Comment field is required!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+
+                }
+
             })
 
         })

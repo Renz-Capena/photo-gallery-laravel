@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PhotosController;
+use App\Http\Controllers\CommentsController;
 
 
 // login
@@ -38,5 +39,14 @@ Route::controller(PhotosController::class)->group(function(){
 
     Route::post("addPhotos","addPhotos")->name("addPhotosFn");
     Route::get("fetchAllPhoto","fetchAllPhoto")->name("fetchAllPhoto");
+
+});
+
+// comments
+Route::controller(CommentsController::class)->group(function(){
+
+    Route::post("addComments","addComments")->name("addCommentsFn");
+    Route::post("fetchComments","fetchComments")->name("fetchCommentsFn");
+    
 
 });

@@ -26,7 +26,7 @@
             </div>
             <div class="d-flex align-items-center justify-content-between mt-2">
                 <button class="btn btn-outline-primary w-25"><i class="fa-regular fa-thumbs-up"></i> {{ $photoParentId }}</button>
-                <button class="btn btn-outline-primary w-25"><i class="fa-regular fa-message"></i></button>
+                <button class="btn btn-outline-primary w-25" id="showCommentBtn" data-id="{{ $photoParentId }}" data-img="uploads/{{$photo->system_name}}"><i class="fa-regular fa-message"></i></button>
             </div>
         </div>
     @endforeach
