@@ -13,23 +13,29 @@
 
         @endphp
 
-        <div class="col-12 col-md-3 shadow p-5 p-3 text-center">
-            <img src="uploads/{{$photo->system_name}}" alt="" class="img-fluid" style="height: 200px">
-            <div class="my-3">
-                <label for="">Categories :</label>
-                <div class="row my-4">
-                    @foreach ($categories as $category)
-                        <div class="col-4">
-                            <div class="bg-secondary text-light rounded-pill">
-                                {{ $category->category }}
-                            </div>
-                        </div>
-                    @endforeach
+        <div class="col-12 col-md-3  ">
+            <div class="shadow p-3 text-center border">
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-sm btn-outline-primary me-2"><i class="fa-regular fa-pen-to-square"></i></button>
+                    <button class="btn btn-sm btn-outline-danger removePhotosDb" data-id="{{ $photoParentId }}"><i class="fa-solid fa-trash"></i></button>
                 </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-between mt-2">
-                <button class="btn btn-outline-primary w-25" id="likeBtn" data-id="{{ $photoParentId }}"><i class="fa-regular fa-thumbs-up"></i> {{ $reactionCounts ? $reactionCounts : "" }}</button>
-                <button class="btn btn-outline-primary w-25" id="showCommentBtn" data-id="{{ $photoParentId }}" data-img="uploads/{{$photo->system_name}}"><i class="fa-regular fa-message"></i></button>
+                <img src="uploads/{{$photo->system_name}}" alt="" class="img-fluid" style="height: 200px">
+                <div class="my-3">
+                    <label for="">Categories :</label>
+                    <div class="row my-4">
+                        @foreach ($categories as $category)
+                            <div class="col-4">
+                                <div class="bg-secondary text-light rounded-pill">
+                                    {{ $category->category }}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mt-2">
+                    <button class="btn btn-outline-primary w-25" id="likeBtn" data-id="{{ $photoParentId }}"><i class="fa-regular fa-thumbs-up"></i> {{ $reactionCounts ? $reactionCounts : "" }}</button>
+                    <button class="btn btn-outline-primary w-25" id="showCommentBtn" data-id="{{ $photoParentId }}" data-img="uploads/{{$photo->system_name}}"><i class="fa-regular fa-message"></i></button>
+                </div>
             </div>
         </div>
     @endforeach

@@ -40,6 +40,7 @@ Route::controller(PhotosController::class)->group(function(){
 
     Route::post("addPhotos","addPhotos")->name("addPhotosFn");
     Route::get("fetchAllPhoto","fetchAllPhoto")->name("fetchAllPhoto");
+    Route::post("removePhotos","removePhotos")->name("removePhotosFn");
 
 });
 

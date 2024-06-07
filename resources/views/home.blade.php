@@ -395,6 +395,48 @@
 
             })
 
+            $(document).on("click", ".removePhotosDb", function() {
+
+                const id = $(this).data('id')
+
+                const filter = $("#filterDropDown").val();
+
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+
+                        $.ajax({
+                            url: "{{ route('removePhotosFn') }}",
+                            method: "post",
+                            data: {
+                                id,
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success() {
+
+                                loadAllPhotos(filter)
+
+                                Swal.fire({
+                                    title: "Deleted!",
+                                    text: "Your file has been deleted.",
+                                    icon: "success"
+                                });
+                            }
+                        })
+
+                    }
+                });
+
+            })
+
         })
     </script>
 @endsection

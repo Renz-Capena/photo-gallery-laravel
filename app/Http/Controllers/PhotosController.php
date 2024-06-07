@@ -48,15 +48,26 @@ class PhotosController extends Controller
 
         if($req->filter == 0){
             
-            $photos = Photos::all();
+            $photos = Photos::where('status',1)->get();
 
         }else{
 
             $photos = PhotoCategory::leftJoin('photos','photos.id','photo_categories.photo_id')
-            ->where('category',$req->filter)->get();
+            ->where('category',$req->filter)
+            ->where('photos.status',1)
+            ->get();
 
         }
 
         return view('layouts.photo',compact('photos'));
+    }
+
+    // remove
+    public function removePhotos(Request $req){
+
+        Photos::find($req->id)->update([
+            'status' => 0
+        ]);
+
     }
 }
