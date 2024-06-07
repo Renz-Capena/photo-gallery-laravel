@@ -5,7 +5,10 @@
 @endsection
 
 @section('container')
-    <form class="w-50 shadow mt-5 mx-auto p-3 rounded" id="loginUser">
+    <form class="w-50 mt-5 mx-auto p-3 rounded card" id="loginUser">
+        <h3 class="text-center">PHOTO GALLERY</h3>
+        <hr>
+        <p class="text-secondary text-center"><i>Please Login to continue</i></p>
         @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -18,6 +21,11 @@
         <button type="submit" class="btn btn-primary w-100 my-3">Login</button>
         <a href="{{ route('registerFn') }}" class="btn w-100 mt-3">Register</a>
     </form>
+
+    <div class="text-light text-center rounded-4 mb-5" style="position:absolute;left:0;right:0;bottom:0;z-index:2;text-shadow:1px 1px 10px #000">
+        <div id="quotesText">Loading..</div>
+        <div id="quotesAuthor">Loading..</div>
+    </div>
 @endsection
 
 @section('scripts')

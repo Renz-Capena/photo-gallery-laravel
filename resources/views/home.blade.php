@@ -119,26 +119,28 @@
         </div>
     </div>
 
-    <div class="border p-3 mt-5 d-md-flex text-center align-items-center justify-content-between rounded">
+    <div class="shadow p-3 mt-5 d-md-flex text-center align-items-center justify-content-between rounded bg-light">
         <p class="p-0 m-0"><b><i>Welcome {{ Auth::user()->name }}!</i></b></p>
         <a href="{{ route('logOutFn') }}" class="btn btn-sm btn-danger"><i class="fa-solid fa-right-from-bracket"></i>
             Logout</a>
     </div>
 
-    <div class="text-center mt-5">
-        <button class="btn btn-outline-primary btn-sm" id="showAddImgModal"><i class="fa-solid fa-plus"></i> Add
-            Picture</button>
-    </div>
-
-    <div class="d-flex align-items-center justify-content-center justify-content-md-start mt-3">
-        <p class="p-0 m-0 me-3">Filter : </p>
-        <select class="form-control w-25" id="filterDropDown">
-            {{-- filter --}}
-        </select>
-    </div>
-
-    <div class="row mt-5 " id="photoGalleryContainer">
-        <div class="text-center">Loading...</div>
+    <div class="mt-5 card p-5">
+        <div class="text-center">
+            <button class="btn btn-outline-primary btn-sm" id="showAddImgModal"><i class="fa-solid fa-plus"></i> Add
+                Picture</button>
+        </div>
+    
+        <div class="d-flex align-items-center justify-content-center justify-content-md-start mt-3">
+            <p class="p-0 m-0 me-3">Filter : </p>
+            <select class="form-control w-25" id="filterDropDown">
+                {{-- filter --}}
+            </select>
+        </div>
+    
+        <div class="row mt-5 " id="photoGalleryContainer">
+            <div class="text-center">Loading...</div>
+        </div>
     </div>
 @endsection
 
@@ -224,8 +226,10 @@
             })
 
         }
-
+        
         $(function() {
+            
+            
 
             // initial functions to load data
             loadAllPhotos()

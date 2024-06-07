@@ -14,8 +14,8 @@ Route::get('/', fn () => view('login'))->name('loginFn');
 // register
 Route::get('register', fn () => view('register'))->name('registerFn'); 
 
-// register
-Route::get('home', fn () => view('home'))->name('homeFn'); 
+// home
+Route::get('home', fn () => view('home'))->name('homeFn')->middleware('auth'); 
 
 // users controller
 Route::controller(Users::class)->group(function(){
