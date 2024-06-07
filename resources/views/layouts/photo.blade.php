@@ -6,7 +6,9 @@
             $photoParentId = $photo->id;
 
             $categories = App\Models\PhotoCategory::leftJoin('categories','categories.id','photo_categories.category')
-            ->where('photo_categories.photo_id',$photoParentId)->get();
+            ->where('photo_categories.photo_id',$photoParentId)
+            ->where("photo_categories.status",1)
+            ->get();
 
             // count reactions
             $reactionCounts = App\Models\Reactions::where('photo_id',$photoParentId)->where('status',1)->count()
@@ -15,16 +17,20 @@
 
         <div class="col-12 col-md-3  ">
             <div class="shadow p-3 text-center border">
-                <div class="d-flex justify-content-end mb-3">
-                    <button class="btn btn-sm btn-outline-primary me-2"><i class="fa-regular fa-pen-to-square"></i></button>
-                    <button class="btn btn-sm btn-outline-danger removePhotosDb" data-id="{{ $photoParentId }}"><i class="fa-solid fa-trash"></i></button>
+
+                <div class="d-flex justify-content-end mb-3" style="height: 33px">
+                    @if ($photo->user_id == Auth::user()->id)
+                        <button class="btn btn-sm btn-outline-primary me-2" id="editPhotosModalBtn" data-id="{{ $photoParentId }}"><i class="fa-regular fa-pen-to-square"></i></button>
+                        <button class="btn btn-sm btn-outline-danger removePhotosDb" data-id="{{ $photoParentId }}"><i class="fa-solid fa-trash"></i></button>
+                        @endif
                 </div>
+                
                 <img src="uploads/{{$photo->system_name}}" alt="" class="img-fluid" style="height: 200px">
                 <div class="my-3">
                     <label for="">Categories :</label>
                     <div class="row my-4">
                         @foreach ($categories as $category)
-                            <div class="col-4">
+                            <div class="col-4 my-1">
                                 <div class="bg-secondary text-light rounded-pill">
                                     {{ $category->category }}
                                 </div>

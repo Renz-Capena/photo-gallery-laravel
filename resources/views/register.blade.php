@@ -5,7 +5,7 @@
 @endsection
 
 @section('container')
-    <form class="w-25 shadow mt-5 mx-auto p-3 rounded" id="registerForm">
+    <form class="w-50 shadow mt-5 mx-auto p-3 rounded" id="registerForm">
         @csrf
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Full Name <span class="text-danger">*</span></label>

@@ -32,6 +32,7 @@ Route::controller(CategoriesController::class)->group(function(){
     Route::post("addCategory","addCategory")->name("addCategoryFn");
     Route::get("fetchAllCategories","fetchAllCategories")->name("fetchAllCategoriesFn");
     Route::get("fetchAllCategoryFilter","fetchAllCategoryFilter")->name("fetchAllCategoryFilterFn");
+    Route::post("fetchAllCategoryEdit","fetchAllCategoryEdit")->name("fetchAllCategoryEditFn");
 
 });
 
@@ -41,6 +42,7 @@ Route::controller(PhotosController::class)->group(function(){
     Route::post("addPhotos","addPhotos")->name("addPhotosFn");
     Route::get("fetchAllPhoto","fetchAllPhoto")->name("fetchAllPhoto");
     Route::post("removePhotos","removePhotos")->name("removePhotosFn");
+    Route::post("editPhotos","editPhotos")->name("editPhotosFn");
 
 });
 
