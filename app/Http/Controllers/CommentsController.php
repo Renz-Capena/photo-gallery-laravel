@@ -31,6 +31,7 @@ class CommentsController extends Controller
         $comments = Comments::leftJoin('users','users.id','comments.user_id')
         ->select('users.name as name','comments.*')
         ->where('photo_id',$req->parentId)
+        ->orderBy('comments.id','desc')
         ->get(); 
 
         return view('layouts.comments',compact('comments'));

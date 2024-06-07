@@ -5,6 +5,7 @@ use App\Http\Controllers\Users;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PhotosController;
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\ReactionsController;
 
 
 // login
@@ -48,5 +49,11 @@ Route::controller(CommentsController::class)->group(function(){
     Route::post("addComments","addComments")->name("addCommentsFn");
     Route::post("fetchComments","fetchComments")->name("fetchCommentsFn");
     
+});
 
+// Reactions
+Route::controller(ReactionsController::class)->group(function(){
+   
+    Route::post("addReaction","addReaction")->name("addReactionFn");
+    
 });

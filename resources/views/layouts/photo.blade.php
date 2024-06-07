@@ -8,6 +8,9 @@
             $categories = App\Models\PhotoCategory::leftJoin('categories','categories.id','photo_categories.category')
             ->where('photo_categories.photo_id',$photoParentId)->get();
 
+            // count reactions
+            $reactionCounts = App\Models\Reactions::where('photo_id',$photoParentId)->where('status',1)->count()
+
         @endphp
 
         <div class="col-12 col-md-3 shadow p-5 p-3 text-center">
@@ -25,7 +28,7 @@
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-between mt-2">
-                <button class="btn btn-outline-primary w-25"><i class="fa-regular fa-thumbs-up"></i> {{ $photoParentId }}</button>
+                <button class="btn btn-outline-primary w-25" id="likeBtn" data-id="{{ $photoParentId }}"><i class="fa-regular fa-thumbs-up"></i> {{ $reactionCounts ? $reactionCounts : "" }}</button>
                 <button class="btn btn-outline-primary w-25" id="showCommentBtn" data-id="{{ $photoParentId }}" data-img="uploads/{{$photo->system_name}}"><i class="fa-regular fa-message"></i></button>
             </div>
         </div>

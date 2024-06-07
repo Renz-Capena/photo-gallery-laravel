@@ -152,9 +152,9 @@
             $.ajax({
                 url: "{{ route('fetchCommentsFn') }}",
                 method: "post",
-                data:{
+                data: {
                     parentId,
-                    _token:"{{ csrf_token() }}"
+                    _token: "{{ csrf_token() }}"
                 },
                 success(e) {
                     $("#commentsParentContainer").html(e)
@@ -368,6 +368,30 @@
                     });
 
                 }
+
+            })
+
+            // like btn
+            $(document).on("click", "#likeBtn", function() {
+
+                const id = $(this).data('id')
+
+                const filter = $("#filterDropDown").val();
+
+
+                $.ajax({
+                    url: "{{ route('addReactionFn') }}",
+                    method: "post",
+                    data: {
+                        id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success() {
+
+                        loadAllPhotos(filter)
+
+                    }
+                })
 
             })
 
